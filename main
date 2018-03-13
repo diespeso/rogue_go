@@ -1,0 +1,33 @@
+type Player struct {
+	name string
+	cell Cell
+}
+
+func newPlayer(name string) Player {
+	return Player{
+		name, newCell(PlayerCell)}
+}
+
+func main() {
+	newBoard := newBoard(10)
+	newBoard.fillWith(Ground)
+	newBoard.setCell(3, 3, Water)
+	player := newPlayer("Juanito")
+
+	var oldCell CellType
+
+	for i := 0; i < 3; i++ {
+		oldCell = newBoard.getCell(0, i).getCellType()
+		newBoard.setCell(0, i, player.cell.cellType)
+		newBoard.show()
+		fmt.Println()
+		if i != 2 {
+			newBoard.setCell(0, i, oldCell)
+		}
+
+	}
+	newBoard.show()
+
+	str := "perrito"
+	fmt.Println(string(str[0]))
+}
