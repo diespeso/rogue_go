@@ -65,3 +65,24 @@ func (board *Board) SetCellObject(x int, y int, cellObject CellObject) {
 func (board *Board) GetCell(x int, y int) CellObject {
 	return board.matrix[x][y]
 }
+
+//NewEntity sets a new Entity on the given position
+func (board *Board) NewEntity(position Position, cellType CellType) *Entity {
+	return &Entity{
+		Cell{cells[cellType].character, cellType},
+		Position{position.x, position.y},
+		Health(100),
+		Health(10),
+		board.GetCell(position.x, position.y),
+		board,
+	}
+}
+
+//Update updates every single Entity on the array of entities
+//putting every Entity on its cell
+func (board *Board) Update() {
+	for _, key := range entities {
+		board.SetCellObject(key.GetPosition().x, key.GetPosition().y, key)
+		fmt.Println(key.GetPosition().x, key.GetPosition().y)//debug
+	}
+}
